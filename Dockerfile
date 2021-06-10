@@ -1,7 +1,9 @@
 # Using my own ubuntu image for this, which is just the official one plus carbon, git, etc.
 FROM apbarratt/ubuntu-18-with-node-carbon
 
-RUN echo 'alias shapeindex="/tilemill/node_modules/mapnik/lib/binding/bin/shapeindex"' >> ~/.bashrc && \
+# Set up the shell so we can easily use the mapnik binaries should we want to later
+RUN echo 'tty -s && mesg n' >> ~/.profile && \
+    echo 'alias shapeindex="/tilemill/node_modules/mapnik/lib/binding/bin/shapeindex"' >> ~/.bashrc && \
     echo 'alias mapnik-index="/tilemill/node_modules/mapnik/lib/binding/bin/mapnik-index"' >> ~/.bashrc
 SHELL ["/bin/bash", "-l", "-c"]
 
