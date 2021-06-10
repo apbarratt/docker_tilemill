@@ -1,6 +1,10 @@
 # Using my own ubuntu image for this, which is just the official one plus carbon, git, etc.
 FROM apbarratt/ubuntu-18-with-node-carbon
 
+RUN echo 'alias shapeindex="/tilemill/node_modules/mapnik/lib/binding/bin/shapeindex"' >> ~/.bashrc && \
+    echo 'alias mapnik-index="/tilemill/node_modules/mapnik/lib/binding/bin/mapnik-index"' >> ~/.bashrc
+SHELL ["/bin/bash", "-l", "-c"]
+
 # Install tilemill
 RUN git clone https://github.com/tilemill-project/tilemill.git
 WORKDIR /tilemill
