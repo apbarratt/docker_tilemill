@@ -24,8 +24,9 @@ ENV TILEMILL_HOST=127.0.0.1
 ENV TILEMILL_PORT="NO_PROXY"
 
 # And go...
-COPY startTilemill.sh /root/startTilemill.sh
-CMD /root/startTilemill.sh
+COPY startTilemill.sh /startTilemill.sh
+RUN chmod 777 /startTilemill.sh
+CMD /startTilemill.sh
 
 # Expose ports for tilemill
 EXPOSE 20009
