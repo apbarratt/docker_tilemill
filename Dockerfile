@@ -1,5 +1,5 @@
 # Using my own ubuntu image for this, which is just the official one plus carbon, git, etc.
-FROM apbarratt/ubuntu-18-with-node-carbon
+FROM apbarratt/ubuntu-18-node-carbon-postgis
 
 # We'll just stick that fix to the mesg nonsense docker ubuntu does in here
 RUN sed -i ~/.profile -e 's/mesg n || true/tty -s \&\& mesg n/g'
