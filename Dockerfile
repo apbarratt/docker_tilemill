@@ -1,12 +1,6 @@
 # Using my own ubuntu image for this, which is just the official one plus carbon, git, etc.
 FROM apbarratt/ubuntu-18-node-carbon-postgis
 
-# We'll just stick that fix to the mesg nonsense docker ubuntu does in here
-RUN sed -i ~/.profile -e 's/mesg n || true/tty -s \&\& mesg n/g'
-
-# And make sure we're using the right shell
-SHELL ["/bin/bash", "-l", "-c"]
-
 # Install tilemill
 RUN git clone https://github.com/tilemill-project/tilemill.git
 WORKDIR /tilemill
@@ -23,10 +17,15 @@ RUN ln -s /tilemill/node_modules/mapnik/lib/binding/bin/shapeindex /usr/local/bi
 ENV TILEMILL_HOST=127.0.0.1
 ENV TILEMILL_PORT="NO_PROXY"
 
-# And go...
+# Copy over service file
 COPY startTilemill.sh /startTilemill.sh
 RUN chmod 777 /startTilemill.sh
-CMD /startTilemill.sh
+COPY tilemill.service /etc/systemd/system
+
+# And go
+COPY tilemill.sh /apbarratt/tilemill.sh
+RUN chmod 777 /apbarratt/tilemill.sh
+CMD /apbarratt/tilemill.sh
 
 # Expose ports for tilemill
 EXPOSE 20009
