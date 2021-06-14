@@ -1,5 +1,5 @@
 # Using my own ubuntu image for this, which is just the official one plus carbon, git, etc.
-FROM apbarratt/ubuntu-18-node-carbon-postgis
+FROM apbarratt/ubuntu-18-with-node-carbon
 
 # Install tilemill
 RUN git clone https://github.com/tilemill-project/tilemill.git
@@ -17,15 +17,10 @@ RUN ln -s /tilemill/node_modules/mapnik/lib/binding/bin/shapeindex /usr/local/bi
 ENV TILEMILL_HOST=127.0.0.1
 ENV TILEMILL_PORT="NO_PROXY"
 
-# Copy over service file
+# And go
 COPY startTilemill.sh /startTilemill.sh
 RUN chmod 777 /startTilemill.sh
-COPY tilemill.service /etc/systemd/system
-
-# And go
-COPY tilemill.sh /apbarratt/tilemill.sh
-RUN chmod 777 /apbarratt/tilemill.sh
-CMD /apbarratt/tilemill.sh
+RUN /startTilemill.sh
 
 # Expose ports for tilemill
 EXPOSE 20009
