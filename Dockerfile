@@ -20,7 +20,7 @@ ENV TILEMILL_PORT="NO_PROXY"
 # And go
 COPY startTilemill.sh /startTilemill.sh
 RUN chmod 777 /startTilemill.sh
-RUN /startTilemill.sh
+CMD /startTilemill.sh
 
 # Expose ports for tilemill
 EXPOSE 20009
