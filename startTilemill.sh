@@ -1,3 +1,4 @@
+#!/bin/bash
 # Start tilemill, making sure the interface renders with different ports where required by a proxy.
 if [[ $TILEMILL_PORT = "NO_PROXY" ]]; then
   echo "Starting tilemill with default urls of ${TILEMILL_HOST}:20009 for the interface and ${TILEMILL_HOST}:20008 for tiles."
